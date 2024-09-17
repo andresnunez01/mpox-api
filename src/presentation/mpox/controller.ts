@@ -27,7 +27,12 @@ export class MpoxController{
 
 
                 });
-                
+                const emailService = new EmailService();
+                await emailService.sendEmail({
+                    to: "andres.nunez01@outlook.com",
+                    subject: creationDate,
+                    htmlBody: `<h1>${"Genero del infectado: " + genre + "\nEdad del infectado:" + age + "\nUbicación del caso: \n\tlng: " + lng + "\n\tlat: " + lat}</h1>`
+                });
                 return res.json(newMpoxCase)
             } catch (error) {
                 
@@ -70,4 +75,28 @@ export class MpoxController{
             console.error(error)
         }
     }
+
+
+    public getMpoxCasesFromLast7Days = async (req: Request, res: Response) => {
+        try {
+            // Obtener la fecha actual
+            const currentDate = new Date();
+            // Obtener la fecha de hace 7 días
+            const last7DaysDate = new Date(currentDate.getTime() - 7 * 24 * 60 * 60 * 1000);
+
+            // Buscar casos dentro de los últimos 7 días
+            const mpoxCases = await MpoxModel.find({
+                creationDate: {
+                    $gte: last7DaysDate,  // Mayor o igual que la fecha de hace 7 días
+                    $lte: currentDate     // Menor o igual que la fecha actual
+                }
+            });
+
+            res.json(mpoxCases);
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: "Error al obtener los casos de los últimos 7 días" });
+        }
+    };
+
 }

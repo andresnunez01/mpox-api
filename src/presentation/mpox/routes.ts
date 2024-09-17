@@ -7,6 +7,7 @@ export class MpoxRoutes{
         const mpoxController = new MpoxController()
         router.get("/",mpoxController.getMpoxCases)
         router.post("/",mpoxController.createMpoxCase)
+        router.get("/weekCases",mpoxController.getMpoxCasesFromLast7Days)
         router.get("/:id",mpoxController.getMpoxCaseById)
         router.put("/:id",mpoxController.updateMpoxCase)
         router.delete("/:id",mpoxController.deleteMpoxCase)
