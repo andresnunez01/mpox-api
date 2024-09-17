@@ -18,7 +18,7 @@ const mpoxSchema = new mongoose.Schema({
     },
     creationDate:{
         type: Date,
-        required: false,
+        required: true,
         default: Date.now
     },
     isSent:{

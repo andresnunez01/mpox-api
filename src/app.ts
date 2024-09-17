@@ -3,6 +3,7 @@ import { envs } from './config/envs'
 import { MongoDatabase } from './data/init';
 import { MpoxModel } from './data/models/mpox.model';
 import { AppRoutes } from './presentation/routes';
+import { emailJob } from './domain/jobs/email.job';
 
 console.log(envs.PORT)
 
@@ -53,4 +54,5 @@ app.use(AppRoutes.routes);
 
 app.listen(envs.PORT,()=>{
     console.log("Server running on PORT 3000")
+    emailJob()
 })

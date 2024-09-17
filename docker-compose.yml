@@ -2,13 +2,21 @@ version: '3.8'
  
 services:
  
-    # mpox-api:
-    #   build: .
-    #   container_name: mpox-api
-    #   ports:
-    #     - "3000:3000"
-    #   depends_on:
-    #     - mongo
+    mpox-api:
+      image: andresnunez01/mpox-api:latest
+      container_name: mpox-api
+      environment:
+        PORT: ${PORT}
+        MONGO_URL: ${MONGO_URL_DOCKER}
+        MONGO_DB: ${MONGO_DB}
+        MAILER_ACCESS_TOKEN: ${MAILER_ACCESS_TOKEN}
+        MAILER_SERVICE: ${MAILER_SERVICE}
+        MAILER_EMAIL: ${MAILER_EMAIL}
+        MAPBOX_ACCESS_TOKEN: ${MAPBOX_ACCESS_TOKEN}
+      ports:
+        - "3000:3000"
+      depends_on:
+        - mongo
 
 
     mongo:
